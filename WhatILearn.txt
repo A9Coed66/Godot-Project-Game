@@ -1,0 +1,19 @@
+Physic in Godot:
+	1. Area2D: 
+		Des:An Area that chekc if another body entered
+		Can be moved by changing position
+		Example: check if player entered a house
+	2. StaticBody2D:
+		Des: A static body that other bodies collide with
+		Not supposed to be moved
+		Example: static objects like wall, beds, house
+	3. RigidBody2D:
+		Des: Moving body that moves via physics (Like a cannonball)
+		Set an initial velocity
+		The grenade
+	4. CharacterBody2D:
+		Des: moving body controlled by code
+		inbuild methods
+		Any entity that is controlled by code: the player and enemies
+
+Keep collision shape center

@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1pjihus6rwdy"]
+
+[ext_resource type="Texture2D" uid="uid://pmhfk37aktaa" path="res://graphics/objects/ventilation_surface.png" id="1_olisb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fknmp"]
+size = Vector2(164, 190)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_036av"]
+radius = 13.0
+
+[node name="Ventilation Surface" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_olisb")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(340, 4)
+scale = Vector2(1.65, 1)
+texture = ExtResource("1_olisb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_fknmp")
+one_way_collision_margin = 0.0
+debug_color = Color(0.709804, 0.482353, 0.2, 0.419608)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fknmp")
+one_way_collision_margin = 0.0
+debug_color = Color(0.886275, 0.282353, 0.458824, 0.419608)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_fknmp")
+one_way_collision_margin = 0.0
+debug_color = Color(0.541176, 0.513726, 0.658824, 0.419608)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(-82, -82)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_036av")
+one_way_collision_margin = 0.0
+debug_color = Color(0.709804, 0.482353, 0.2, 0.419608)
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+position = Vector2(82, -82)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_036av")
+one_way_collision_margin = 0.0
+debug_color = Color(0.709804, 0.482353, 0.2, 0.419608)
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="."]
+position = Vector2(82, 82)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_036av")
+one_way_collision_margin = 0.0
+debug_color = Color(0.709804, 0.482353, 0.2, 0.419608)
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="."]
+position = Vector2(-82, 82)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_036av")
+one_way_collision_margin = 0.0
+debug_color = Color(0.709804, 0.482353, 0.2, 0.419608)
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="."]
+position = Vector2(206, -76)
+rotation = 1.5708
+scale = Vector2(1.025, 1.685)
+shape = SubResource("CircleShape2D_036av")
+one_way_collision_margin = 0.0
+debug_color = Color(0.709804, 0.482353, 0.2, 0.227451)

@@ -1,14 +1,15 @@
-extends Node2D
+extends CharacterBody2D
 
 var aimCheck: bool = false
+@export var speed = 300
+
 
 func _process(delta):
-	
 	#get input
 	var direction = Input.get_vector("left", "right", "up", "down")
 #	print(direction)
-	position += direction * 200 * delta
-	
+	velocity = direction * speed
+	move_and_slide()
 	#Bantumlum
 	if Input.is_action_just_pressed("primary action"):
 		print("Bantumtoe")

@@ -1,0 +1,15 @@
+Có nhiều hàm inbuild mà mình sẽ phải sử dụng, tất cả các hàm inbuild đều bắt đầu với kí tự _:
+	_ready(): is run when a Node is added to the node tree <Tương tự Start()>
+	_process(): í run on every frame of the game <Tương tự Update()>
+
+Có 2 cách để gọi node khác:
+	get_node("node path")
+	$node path
+
+Đối tượng làm việc chính của Godot là Node
+
+Về script, gắn với mỗi Node chỉ có thể có tối đa 1 script
+
+Input:
+	Sự khác nhau giữa just press và press là just chỉ return true khi bắt đầu, sau đó trả lại false dù có giữ
+	press thì return true cả khi bắt đầu nhấn và quá trình giữ sau đó

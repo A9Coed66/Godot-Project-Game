@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://viqnyws18uhp"]
 
-[ext_resource type="Texture2D" uid="uid://crkrdjsw7byae" path="res://icon.svg" id="1_47n4s"]
 [ext_resource type="Script" path="res://Scenes/levels/level.gd" id="1_c7i6p"]
-[ext_resource type="Script" path="res://Scenes/Logo.gd" id="2_kl1xl"]
 [ext_resource type="PackedScene" uid="uid://pmyk4bwj4s70" path="res://Scenes/players/player.tscn" id="3_1hljg"]
+[ext_resource type="PackedScene" uid="uid://c1pjihus6rwdy" path="res://Scenes/Objects/Ventilation Surface.tscn" id="4_iwrqt"]
+[ext_resource type="PackedScene" uid="uid://d3cmb025b3ddh" path="res://Scenes/Objects/bed.tscn" id="5_nercr"]
 
 [node name="Level" type="Node2D"]
 position = Vector2(-3, -3)
@@ -12,8 +12,8 @@ script = ExtResource("1_c7i6p")
 [node name="Player" parent="." instance=ExtResource("3_1hljg")]
 position = Vector2(539, 313)
 
-[node name="Logo" type="Sprite2D" parent="."]
-position = Vector2(5, 0)
-texture = ExtResource("1_47n4s")
-region_rect = Rect2(-20, -31.5, 89, 207)
-script = ExtResource("2_kl1xl")
+[node name="Bed" parent="." instance=ExtResource("5_nercr")]
+position = Vector2(940, 326)
+
+[node name="Ventilation Surface" parent="." instance=ExtResource("4_iwrqt")]
+position = Vector2(235, 277)
