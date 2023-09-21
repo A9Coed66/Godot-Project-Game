@@ -13,11 +13,6 @@ radius = 13.0
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_olisb")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(340, 4)
-scale = Vector2(1.65, 1)
-texture = ExtResource("1_olisb")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("RectangleShape2D_fknmp")
@@ -62,11 +57,3 @@ rotation = 1.5708
 shape = SubResource("CircleShape2D_036av")
 one_way_collision_margin = 0.0
 debug_color = Color(0.709804, 0.482353, 0.2, 0.419608)
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="."]
-position = Vector2(206, -76)
-rotation = 1.5708
-scale = Vector2(1.025, 1.685)
-shape = SubResource("CircleShape2D_036av")
-one_way_collision_margin = 0.0
-debug_color = Color(0.709804, 0.482353, 0.2, 0.227451)
