@@ -7,6 +7,9 @@ var can_grenade: bool = true
 var current_bullet: int = 18
 @export var speed = 300
 
+signal laser
+signal grenade
+
 
 func _process(delta):
 	#get input
@@ -33,11 +36,13 @@ func _process(delta):
 		print("shoot laser")
 		can_laser = false
 		$LaserTimer.start()
+		laser.emit()
 	
 	if Input.is_action_pressed("secondary action") and can_grenade:
 		print("shoot grenade")
 		can_grenade = false
 		$GrenadeTimer.start()
+		grenade.emit()
 	if Input.is_action_just_pressed("limited_bullet"):
 		if current_bullet<=0:
 			print("Runout of bullet")

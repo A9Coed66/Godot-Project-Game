@@ -18,3 +18,11 @@ func _on_gate_player_entered_gate():
 	print("Body entered")
 	pass # Replace with function body.
 
+
+
+func _on_player_laser():
+	print("Shoot")
+
+
+func _on_player_grenade():
+	print("Grenade")

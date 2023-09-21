@@ -1,0 +1,121 @@
+[gd_scene load_steps=15 format=3 uid="uid://c027vxj3uun0r"]
+
+[ext_resource type="Texture2D" uid="uid://crkrdjsw7byae" path="res://icon.svg" id="1_0hgkc"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="1_okycw"]
+[ext_resource type="Script" path="res://watchMan.gd" id="1_u0trv"]
+[ext_resource type="Script" path="res://enemy.gd" id="2_smt3f"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_urtjg"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="4_64etg"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_eg6pe"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_n2e4i"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_mbfp0"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/expression_guard.gd" id="8_dn7sn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kismh"]
+radius = 173.003
+
+[sub_resource type="Resource" id="Resource_61kvt"]
+script = ExtResource("8_dn7sn")
+expression = "enemy_entered_count > 2"
+
+[sub_resource type="Resource" id="Resource_6jgc6"]
+script = ExtResource("8_dn7sn")
+expression = "delay_seconds >= 3"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mqo6g"]
+radius = 97.0206
+
+[node name="Node2D" type="Node2D"]
+
+[node name="WatchMan" type="Node2D" parent="."]
+position = Vector2(400, 329)
+rotation = -1.5708
+script = ExtResource("1_u0trv")
+metadata/_edit_group_ = true
+
+[node name="Icon" type="Sprite2D" parent="WatchMan"]
+rotation = 1.5708
+texture = ExtResource("1_0hgkc")
+
+[node name="Area2D" type="Area2D" parent="WatchMan"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WatchMan/Area2D"]
+shape = SubResource("CircleShape2D_kismh")
+
+[node name="StateChart" type="Node" parent="WatchMan"]
+script = ExtResource("3_urtjg")
+
+[node name="Root" type="Node" parent="WatchMan/StateChart"]
+script = ExtResource("4_64etg")
+
+[node name="AlertState" type="Node" parent="WatchMan/StateChart/Root"]
+script = ExtResource("4_eg6pe")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="WatchMan/StateChart/Root/AlertState"]
+script = ExtResource("5_n2e4i")
+
+[node name="To Observing" type="Node" parent="WatchMan/StateChart/Root/AlertState/Idle"]
+script = ExtResource("6_mbfp0")
+to = NodePath("../../Observing")
+event = &"enemy_entered"
+
+[node name="Observing" type="Node" parent="WatchMan/StateChart/Root/AlertState"]
+script = ExtResource("5_n2e4i")
+
+[node name="To Idle" type="Node" parent="WatchMan/StateChart/Root/AlertState/Observing"]
+script = ExtResource("6_mbfp0")
+to = NodePath("../../Idle")
+event = &"enemy_exited"
+delay_seconds = 0.6
+
+[node name="BersekMode" type="Node" parent="WatchMan/StateChart/Root"]
+script = ExtResource("4_eg6pe")
+initial_state = NodePath("Normal")
+
+[node name="Normal" type="Node" parent="WatchMan/StateChart/Root/BersekMode"]
+script = ExtResource("5_n2e4i")
+
+[node name="To Bersek" type="Node" parent="WatchMan/StateChart/Root/BersekMode/Normal"]
+script = ExtResource("6_mbfp0")
+to = NodePath("../../Bersek")
+event = &"enemy_entered"
+guard = SubResource("Resource_61kvt")
+
+[node name="Bersek" type="Node" parent="WatchMan/StateChart/Root/BersekMode"]
+script = ExtResource("5_n2e4i")
+
+[node name="To Normal" type="Node" parent="WatchMan/StateChart/Root/BersekMode/Bersek"]
+script = ExtResource("6_mbfp0")
+to = NodePath("../../Normal")
+event = &"enemy_exiting"
+guard = SubResource("Resource_6jgc6")
+
+[node name="Enemy" type="Node2D" parent="."]
+position = Vector2(863, 253)
+script = ExtResource("2_smt3f")
+metadata/_edit_group_ = true
+
+[node name="Icon" type="Sprite2D" parent="Enemy"]
+texture = ExtResource("1_0hgkc")
+
+[node name="Area2D" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
+shape = SubResource("CircleShape2D_mqo6g")
+debug_color = Color(0.886275, 0.266667, 0.494118, 0.419608)
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("1_okycw")]
+offset_left = 801.0
+offset_top = 3.0
+offset_right = 1148.0
+offset_bottom = 572.0
+initial_node_to_watch = NodePath("../WatchMan/StateChart")
+
+[connection signal="area_entered" from="WatchMan/Area2D" to="WatchMan" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="WatchMan/Area2D" to="WatchMan" method="_on_area_2d_area_exited"]
+[connection signal="state_entered" from="WatchMan/StateChart/Root/AlertState/Idle" to="WatchMan" method="_on_idle_state_entered"]
+[connection signal="state_processing" from="WatchMan/StateChart/Root/AlertState/Observing" to="WatchMan" method="_on_observing_state_processing"]
+[connection signal="state_entered" from="WatchMan/StateChart/Root/BersekMode/Normal" to="WatchMan" method="_on_normal_state_entered"]
+[connection signal="state_entered" from="WatchMan/StateChart/Root/BersekMode/Bersek" to="WatchMan" method="_on_bersek_state_entered"]
+[connection signal="state_processing" from="WatchMan/StateChart/Root/BersekMode/Bersek" to="WatchMan" method="_on_bersek_state_processing"]
